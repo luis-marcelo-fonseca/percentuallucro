@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Valor de Venda</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box; /* Garante que padding e borda sejam incluídos na largura */
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .result {
+            font-size: 20px;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .credits {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .credits a {
+            color: #888;
+            text-decoration: none;
+        }
+
+        .credits a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Valor de Venda</h1>
+
+        <label for="custo">Custo do Produto (R$):</label>
+        <input type="number" id="custo" placeholder="Ex: 100,00" step="0.01" />
+
+        <label for="percentual">Percentual de Lucro (%):</label>
+        <input type="number" id="percentual" placeholder="Ex: 20" step="0.01" />
+
+        <button onclick="calcularValor()">Calcular Valor de Venda</button>
+
+        <div id="resultado" class="result"></div>
+    </div>
+
+    <div class="credits">
+        Desenvolvido por <a href="https://github.com/luis-marcelo-fonseca" >Luis Marcelo Fonseca</a>
+    </div>
+
+    <script>
+        function calcularValor() {
+           // Obtém os valores dos campos e substitui vírgula por ponto
+    const custo = parseFloat(document.getElementById('custo').value.replace(',', '.'));
+    const percentualLucro = parseFloat(document.getElementById('percentual').value.replace(',', '.'));
+
+            // Verifica se os valores são válidos
+            if (isNaN(custo) || isNaN(percentualLucro)) {
+                alert("Por favor, insira valores numéricos válidos.");
+            } else {
+                // Converte o percentual de lucro em uma fração
+                const percentual = percentualLucro / 100;
+
+                // Calcula o valor final da venda
+                const valorVenda = custo / (1 - percentual);
+
+                // Formata o valor com vírgula e exibe o resultado
+                document.getElementById('resultado').innerHTML = 
+                    "Valor de Venda: R$ " + valorVenda.toFixed(2).replace('.', ',');
+            }
+        }
+    </script>
+</body>
+</html>
